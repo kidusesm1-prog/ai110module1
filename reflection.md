@@ -1,51 +1,50 @@
-# 💭 Reflection: Game Glitch Investigator
-
-Answer each question in 3 to 5 sentences. Be specific and honest about what actually happened while you worked. This is about your process, not trying to sound perfect.
-
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+* The game loaded normally at first, but the behavior became inconsistent after a few guesses.
+* The hint system was backwards.
+* Correct guesses sometimes failed because the secret number was converted into a string.
+* The New Game button did not fully reset the game state.
 
 **Bug Reproduction Log**
 
-Document at least 3 bugs you found. Add rows as needed.
-
-| Input | Expected Behavior | Actual Behavior | Console Output / Error |
-|-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| Input                                     | Expected Behavior                       | Actual Behavior                                                          | Console Output / Error |
+| ----------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------ | ---------------------- |
+| Guess higher than the secret number       | Hint should say "Go LOWER"              | Hint said "Go HIGHER"                                                    | None                   |
+| Correct guess on an even-numbered attempt | Game should register a win              | Correct guess failed because the secret number was converted to a string | None                   |
+| Click "New Game" after winning or losing  | Game should fully reset and start fresh | Status, score, and history were not fully reset                          | None                   |
 
 ---
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+* I used ChatGPT and the AI assistant in VS Code.
+* A correct AI suggestion was that the hint logic in `check_guess()` was reversed.
+* I verified that by testing guesses above and below the secret number.
+* One misleading suggestion was treating the issue mostly as a Streamlit state problem. The actual code also had a type bug where the secret number was changed into a string.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+* I tested each bug by reproducing it first, then checking if it disappeared after the fix.
+* I manually tested guesses below, above, and equal to the secret number.
+* I also tested the New Game button after winning to make sure attempts, score, history, status, and the secret number reset.
+* Finally, I ran `python -m pytest tests/test_game_logic.py`, and all 3 tests passed.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+* Streamlit reruns the script from top to bottom whenever the user interacts with the app.
+* `st.session_state` lets the app remember values between reruns.
+* Without session state, the game would forget the secret number, score, attempts, and history after each button click.
+* I would explain session state as the app’s memory while the user is playing.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+* I want to reuse the habit of writing down bugs before fixing them.
+* Listing the input, expected behavior, and actual behavior made debugging easier.
+* Next time, I would ask AI more focused questions instead of asking it to fix too much at once.
+* This project showed me that AI-generated code can look correct while still having serious logic bugs, so every fix needs to be tested.

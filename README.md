@@ -52,3 +52,12 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 ## 🚀 Stretch Features
 
 - [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+
+## Demo Walkthrough
+
+1. User starts a new game on Normal difficulty.
+2. The app shows the range as 1 to 100 and 8 attempts.
+3. User guesses below the secret number and gets "Go HIGHER."
+4. User guesses above the secret number and gets "Go LOWER."
+5. User guesses the correct number and the game shows a win message.
+6. User clicks New Game and the score, attempts, history, and status reset.
